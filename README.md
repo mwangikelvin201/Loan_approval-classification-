@@ -92,11 +92,72 @@ The data had different predictors, encoded in different formats(float, integer a
 
 We had a binary target variable. It had two classes 0 and 1 which represented not approved and approved respectively. 
 
-#DATA VISUALIZATION
+# DATA VISUALIZATION
 
 Some of the visualizations have been incooperated to give the general distribution of the data and performance of the model.
 
-### Distribution of one of the numerical columns  as well as the outlier detection outliers.
+### Distribution of one of the credit score  as well as the outlier detection .
 
 ![img](https://github.com/mwangikelvin201/Loan_approval-classification-/blob/05cd7b73d892d086a4b0d029da57ef513d825452/numerical.png)
+
+### confusion matrix for the model
+
+![img](https://github.com/mwangikelvin201/Loan_approval-classification-/blob/86f77713327be1ca264590f7bfa595673dd7604f/matrix.png)
+
+
+## Here's the lowdown on that confusion grid:
+### True Negatives (TN): 7943
+These are loans where customers didn't miss payments, predicted accurately as such.
+
+### False Positives (FP): 478
+These are loans where customers kept up with payments but were wrongly tagged as defaulters.
+
+### False Negatives (FN): 372
+Loans in this bunch slipped through and should've been flagged as defaulting but weren't.
+
+### True Positives (TP): 2116
+In this case, loans expected to default were indeed caught by the model.
+
+# 7.CONCLUSIONS
+
+From the models and insights above, we can come to the following observations:
+All the models have a high accuracy(89) adn above. However our dataset being very imbalanced, we cannot assume our models have a good performance from the accuracy alone.
+
+Conveniently the precision ,recall and Fbetascore which are the guiding metrics of a model from imbalanced data,are very good too.
+
+The XGBClassifier and randomforest models have very good performances of the three metrics.
+
+Even after applying SMOTE to deal with the class imbalance still there is not a very big change in our guiding metrics indicating that the class imbalance does not affect the performance of the model in a much significant way.
+
+The confusion matrix also visualizes the general predictive ability of the model and it is also indicates quite a high accurate prediction of the data.
+
+# 8. Recommendations
+Based on the insights derived from the loan default prediction model, here are tailored recommendations for the financial institution looking to reduce loan defaults and improve overall risk management as well as improve customer relations:
+
+### i. Proactive Default Prevention Strategies
+Proactive Risk Mitigation : This actively involves managing loans at risk of default.
+
+This will include leveraging the model’s predictive power to identify high-risk loans early in their lifecycle (especially loans with a high likelihood of default). For these loans, initiate proactive engagement such as:
+
+Offering restructured repayment plans.
+
+Providing financial counseling or personalized assistance to help borrowers manage their payments.
+
+Introducing temporary deferments or interest rate reductions for at-risk customers.
+
+This approach will help the firm to share and manage risks with the borrower
+
+### ii. Approve loans based on risk profiles:
+Use the model’s predictions to fine-tune the loan approval process by incorporating default risk scores into decision-making. This will allow the company to:
+
+Offer loans to the low risk customers who are not likely to default.
+
+Deny loans to high risk borrowers or offer them with strict restrictions.
+
+### iii. Adjustment of interest rates and securities for high risk individuals
+This involves offering loans at a higher interest rate or more securities to high risk customers. Thuis will discourage them from defaulting to avoid the loss of their posessions used as security.
+
+### iv. Personalized Loan Products
+This involves tailoring of different loan packages to accomodate different individuals of distinct risk levels.
+
 
