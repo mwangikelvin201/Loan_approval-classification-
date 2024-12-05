@@ -38,7 +38,7 @@ Post-loan servicing or collection processes.
 
 Data collection from external or non-traditional data sources (unless the company has access to them).
 
-# 4. STAKEHOLDRES
+# 4. STAKEHOLDERS
 ## Business Owners/Executives:
 Will use the model to make informed decisions on lending practices, risk assessment, and financial strategy.
 
