@@ -96,7 +96,7 @@ We had a binary target variable. It had two classes 0 and 1 which represented no
 
 Some of the visualizations have been incooperated to give the general distribution of the data and performance of the model.
 
-### Distribution of the numerical columns  as well as the outlier detection outliers.
+### Distribution of one of the numerical columns  as well as the outlier detection outliers.
 
-![img](
+![img](https://github.com/mwangikelvin201/Loan_approval-classification-/blob/05cd7b73d892d086a4b0d029da57ef513d825452/numerical.png)
 
