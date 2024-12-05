@@ -131,7 +131,7 @@ Even after applying SMOTE to deal with the class imbalance still there is not a 
 
 The confusion matrix also visualizes the general predictive ability of the model and it is also indicates quite a high accurate prediction of the data.
 
-# 8. Recommendations
+# 8. RECOMMENDATIONS
 Based on the insights derived from the loan default prediction model, here are tailored recommendations for the financial institution looking to reduce loan defaults and improve overall risk management as well as improve customer relations:
 
 ### i. Proactive Default Prevention Strategies
