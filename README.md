@@ -82,3 +82,21 @@ Loan amount, loan type, term length, etc.
 
 ## Behavioral Data:
 Transactions, savings, and spending habits that may indicate financial responsibility. Economic Factors: Macroeconomic data such as unemployment rates, inflation, or regional economic conditions (optional, but helpful in some cases).
+
+# DATA SOURCE
+Kaggle datasets
+
+# DATA INSIGHTS
+
+The data had different predictors, encoded in different formats(float, integer and object)
+
+We had a binary target variable. It had two classes 0 and 1 which represented not approved and approved respectively. 
+
+#DATA VISUALIZATION
+
+Some of the visualizations have been incooperated to give the general distribution of the data and performance of the model.
+
+### Distribution of the numerical columns  as well as the outlier detection outliers.
+
+![img](
+
