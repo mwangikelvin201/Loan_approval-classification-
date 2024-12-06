@@ -54,7 +54,17 @@ Loan applicants who are affected by the approval or rejection decisions. A more 
 ## Regulators:
 They will need to ensure that the model complies with financial regulations and ethical standards.
 
-# 5. SUCCESS CRITERIA
+# 5. METHODOLOGY 
+## Model Selection:
+The baseline model employed was the Sequential Model from Keras, It was followed by the XGBoost Model and the Random Forest Classifier as well as the Logistic regressor.
+
+## Training and testing:
+75% of the data was used for training the model and 25% was used for testing and validation.
+
+## Evaluation metrics:
+Having worked with an imbalanced dataset, the metrics used were F1Score, recall and precision.
+
+# 6. SUCCESS CRITERIA
 
 The model's success will be measured based on its ability to improve the loan approval process. Success metrics could include:
 
@@ -67,7 +77,7 @@ For better handling of false positives (approving loans that shouldn't be approv
 ## Business Impact:
 Improvements in key business metrics such as reduced loan defaults, faster processing times, or better customer retention. Regulatory Compliance: Ensuring the model adheres to relevant financial and privacy regulations. Scalability: Ability to handle a large number of loan applications.
 
-# 6.DATA UNDERSTANDING¶
+# 7.DATA UNDERSTANDING¶
 
 Data is the foundation of any predictive model. For the loan approval model, the data typically includes:
 
@@ -118,7 +128,7 @@ Loans in this bunch slipped through and should've been flagged as defaulting but
 ### True Positives (TP): 2116
 In this case, loans expected to default were indeed caught by the model.
 
-# 7.CONCLUSIONS
+# 8.CONCLUSIONS
 
 From the models and insights above, we can come to the following observations:
 All the models have a high accuracy(89) adn above. However our dataset being very imbalanced, we cannot assume our models have a good performance from the accuracy alone.
@@ -131,7 +141,7 @@ Even after applying SMOTE to deal with the class imbalance still there is not a 
 
 The confusion matrix also visualizes the general predictive ability of the model and it is also indicates quite a high accurate prediction of the data.
 
-# 8. RECOMMENDATIONS
+# 9. RECOMMENDATIONS
 Based on the insights derived from the loan default prediction model, here are tailored recommendations for the financial institution looking to reduce loan defaults and improve overall risk management as well as improve customer relations:
 
 ### i. Proactive Default Prevention Strategies
