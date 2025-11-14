@@ -1,5 +1,144 @@
-# Loan_approval-classification-
-![IMG](https://github.com/mwangikelvin201/Loan_approval-classification-/blob/3bd47a2ebbbc198b08085f4bc986bb54c1b22024/istockphoto-1308841055-1024x1024.jpg)
+# Loan Approval Classification System
+
+A machine learning-based loan approval prediction system with a complete deployment solution. This project includes data analysis, model training, and a production-ready web application for predicting loan approval decisions.
+
+![Status](https://img.shields.io/badge/status-production--ready-brightgreen)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+- Docker (optional, for containerized deployment)
+
+### Installation & Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Loan_approval-classification-
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Prepare data**
+   - Ensure `loan_data.csv` is in the `data/` directory
+
+4. **Train the model**
+   ```bash
+   python train.py
+   ```
+
+5. **Run the application**
+   ```bash
+   python app.py
+   ```
+
+6. **Access the web interface**
+   - Open your browser and navigate to `http://localhost:5000`
+
+### Docker Deployment
+
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+```
+
+## 📁 Project Structure
+
+```
+Loan_approval-classification-/
+├── src/                    # Source code package
+│   ├── __init__.py
+│   ├── config.py          # Configuration settings
+│   ├── preprocessing.py   # Data preprocessing utilities
+│   ├── train_model.py     # Model training script
+│   └── predict.py         # Prediction utilities
+├── templates/             # HTML templates
+│   └── index.html        # Web interface
+├── data/                  # Data directory
+│   └── loan_data.csv     # Training data
+├── models/                # Saved models (created after training)
+│   ├── model.pkl         # Trained model
+│   └── scaler.pkl        # Feature scaler
+├── app.py                # Flask web application
+├── train.py              # Standalone training script
+├── requirements.txt      # Python dependencies
+├── Dockerfile           # Docker configuration
+├── docker-compose.yml   # Docker Compose configuration
+├── DEPLOYMENT.md        # Detailed deployment guide
+└── README.md            # This file
+```
+
+## 🔧 Features
+
+- **Machine Learning Model**: XGBoost classifier with 93%+ accuracy
+- **Web Interface**: User-friendly HTML interface for loan predictions
+- **REST API**: JSON API endpoints for integration
+- **Batch Processing**: Support for batch predictions
+- **Docker Support**: Containerized deployment ready
+- **Production Ready**: Includes error handling, validation, and logging
+
+## 📊 Model Performance
+
+The XGBoost model achieves the following performance metrics:
+- **Accuracy**: 93.17%
+- **Precision**: 89% (for approved loans)
+- **Recall**: 80% (for approved loans)
+- **F1-Score**: 84%
+
+## 🌐 API Endpoints
+
+### Health Check
+```
+GET /health
+```
+
+### Single Prediction
+```
+POST /predict
+Content-Type: application/json
+
+{
+    "person_age": 25,
+    "person_gender": "male",
+    "person_education": "Bachelor",
+    "person_income": 50000,
+    "person_emp_exp": 3,
+    "person_home_ownership": "RENT",
+    "loan_amnt": 10000,
+    "loan_intent": "EDUCATION",
+    "loan_int_rate": 10.5,
+    "loan_percent_income": 0.2,
+    "cb_person_cred_hist_length": 3,
+    "credit_score": 650,
+    "previous_loan_defaults_on_file": "No"
+}
+```
+
+### Batch Prediction
+```
+POST /predict/batch
+Content-Type: application/json
+
+{
+    "applications": [
+        { ... application 1 ... },
+        { ... application 2 ... }
+    ]
+}
+```
+
+## 📖 Documentation
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
+---
 # 1.BUSINESS UNDERSTANDING
 The financial field has to be handled with a lot of sensitivity especially when lending money to customers.The primary goal of this loan approval model project is to automate and improve the decision-making process for approving or rejecting loan applications. This will be done by building a machine learning model that predicts the likelihood of a loan applicant defaulting on a loan based on historical data.
 
