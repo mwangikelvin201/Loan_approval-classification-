@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Approval Prediction System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result.approved {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .result.rejected {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .result h2 {
+            margin-bottom: 15px;
+        }
+        
+        .result-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .result-item {
+            padding: 10px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 5px;
+        }
+        
+        .result-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏦 Loan Approval Prediction System</h1>
+        <p class="subtitle">Enter applicant details to predict loan approval status</p>
+        
+        <form id="loanForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="person_age">Age *</label>
+                    <input type="number" id="person_age" name="person_age" required min="18" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="person_gender">Gender *</label>
+                    <select id="person_gender" name="person_gender" required>
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="person_education">Education *</label>
+                    <select id="person_education" name="person_education" required>
+                        <option value="">Select...</option>
+                        <option value="High School">High School</option>
+                        <option value="Associate">Associate</option>
+                        <option value="Bachelor">Bachelor</option>
+                        <option value="Master">Master</option>
+                        <option value="Doctorate">Doctorate</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="person_income">Annual Income ($) *</label>
+                    <input type="number" id="person_income" name="person_income" required min="0">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="person_emp_exp">Employment Experience (years) *</label>
+                    <input type="number" id="person_emp_exp" name="person_emp_exp" required min="0" max="50">
+                </div>
+                <div class="form-group">
+                    <label for="person_home_ownership">Home Ownership *</label>
+                    <select id="person_home_ownership" name="person_home_ownership" required>
+                        <option value="">Select...</option>
+                        <option value="RENT">Rent</option>
+                        <option value="OWN">Own</option>
+                        <option value="MORTGAGE">Mortgage</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="loan_amnt">Loan Amount ($) *</label>
+                    <input type="number" id="loan_amnt" name="loan_amnt" required min="500" max="35000">
+                </div>
+                <div class="form-group">
+                    <label for="loan_intent">Loan Intent *</label>
+                    <select id="loan_intent" name="loan_intent" required>
+                        <option value="">Select...</option>
+                        <option value="EDUCATION">Education</option>
+                        <option value="MEDICAL">Medical</option>
+                        <option value="VENTURE">Venture</option>
+                        <option value="PERSONAL">Personal</option>
+                        <option value="DEBTCONSOLIDATION">Debt Consolidation</option>
+                        <option value="HOMEIMPROVEMENT">Home Improvement</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="loan_int_rate">Interest Rate (%) *</label>
+                    <input type="number" id="loan_int_rate" name="loan_int_rate" required min="5" max="20" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="loan_percent_income">Loan % of Income *</label>
+                    <input type="number" id="loan_percent_income" name="loan_percent_income" required min="0" max="1" step="0.01">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cb_person_cred_hist_length">Credit History Length (years) *</label>
+                    <input type="number" id="cb_person_cred_hist_length" name="cb_person_cred_hist_length" required min="2" max="30">
+                </div>
+                <div class="form-group">
+                    <label for="credit_score">Credit Score *</label>
+                    <input type="number" id="credit_score" name="credit_score" required min="300" max="850">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="previous_loan_defaults_on_file">Previous Loan Defaults *</label>
+                <select id="previous_loan_defaults_on_file" name="previous_loan_defaults_on_file" required>
+                    <option value="">Select...</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+            
+            <button type="submit" id="submitBtn">Predict Loan Approval</button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Processing your request...</p>
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="result" id="result">
+            <h2 id="resultTitle"></h2>
+            <div class="result-info">
+                <div class="result-item">
+                    <strong>Status:</strong>
+                    <span id="resultStatus"></span>
+                </div>
+                <div class="result-item">
+                    <strong>Confidence:</strong>
+                    <span id="resultConfidence"></span>
+                </div>
+                <div class="result-item">
+                    <strong>Approval Probability:</strong>
+                    <span id="resultApprovedProb"></span>
+                </div>
+                <div class="result-item">
+                    <strong>Rejection Probability:</strong>
+                    <span id="resultRejectedProb"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('loanForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Hide previous results
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+            
+            // Collect form data
+            const formData = {
+                person_age: parseFloat(document.getElementById('person_age').value),
+                person_gender: document.getElementById('person_gender').value,
+                person_education: document.getElementById('person_education').value,
+                person_income: parseFloat(document.getElementById('person_income').value),
+                person_emp_exp: parseFloat(document.getElementById('person_emp_exp').value),
+                person_home_ownership: document.getElementById('person_home_ownership').value,
+                loan_amnt: parseFloat(document.getElementById('loan_amnt').value),
+                loan_intent: document.getElementById('loan_intent').value,
+                loan_int_rate: parseFloat(document.getElementById('loan_int_rate').value),
+                loan_percent_income: parseFloat(document.getElementById('loan_percent_income').value),
+                cb_person_cred_hist_length: parseFloat(document.getElementById('cb_person_cred_hist_length').value),
+                credit_score: parseFloat(document.getElementById('credit_score').value),
+                previous_loan_defaults_on_file: document.getElementById('previous_loan_defaults_on_file').value
+            };
+            
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Prediction failed');
+                }
+                
+                if (data.success && data.prediction) {
+                    const pred = data.prediction;
+                    const resultDiv = document.getElementById('result');
+                    const isApproved = pred.status === 'Approved';
+                    
+                    resultDiv.className = 'result ' + (isApproved ? 'approved' : 'rejected');
+                    document.getElementById('resultTitle').textContent = 
+                        isApproved ? '✅ Loan Approved!' : '❌ Loan Rejected';
+                    document.getElementById('resultStatus').textContent = pred.status;
+                    document.getElementById('resultConfidence').textContent = 
+                        (pred.confidence * 100).toFixed(2) + '%';
+                    document.getElementById('resultApprovedProb').textContent = 
+                        (pred.probability.approved * 100).toFixed(2) + '%';
+                    document.getElementById('resultRejectedProb').textContent = 
+                        (pred.probability.rejected * 100).toFixed(2) + '%';
+                    
+                    resultDiv.style.display = 'block';
+                } else {
+                    throw new Error('Invalid response from server');
+                }
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('error').textContent = 'Error: ' + error.message;
+                document.getElementById('error').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
+
